@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="zvu">
+    <meta name="keywords" content="Upwork, Invoice, PHP">
+    <title>Invoice</title>
+    <style>
+        * {
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        td {
+            border: 1px solid black;
+            padding: 1px 10px;
+        }
+        #table-total td:first-child {
+            width: 5%;
+        }
+        #table-total td:nth-child(2) {
+            width: 35%;
+        }
+        #table-total td {
+            width: 20%;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h3>Invoice / Інвойс № <span id="invoice">_________</span></h3>
+    <table>
+        <thead></thead>
+        <tbody>
+        <tr>
+            <td><b>Date of invoice</b>: <date>_____________________ 2021</date></td>
+            <td><b>Дата інвойсу</b>:  <date>___________________________ 2021</date> р.</td>
+        </tr>
+        <tr>
+            <td>
+                <b>Supplier</b> Individual Entrepreneur <span id="en-pe-name">_______________________________________________</span>
+                <br/>Address:
+                <span id="en-pe-address">(Zip, City, Street, Building, Apt.)_______________________________________________</span>
+                <br/>Individual Tax Number - <span id="en-pe-id"></span>
+            </td>
+            <td>
+                <b>Виконавець</b>: ФОП <span id="uk-pe-name">________________________________</span>,
+                <br/>що проживає за адресою:
+                <span id="uk-pe-address">(індекс, місто, вулиця, будинок, квартира) __________________________________________________</span>
+                <br/>ІПН - <span id="uk-pe-id"></span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Customer</b>: Upwork Global Inc.
+                475 Brannan Street, Suite 430, San Francisco, CA 94107
+                Represented by Director of Customer Support, Michelle
+                Appleberg, who acts according to the Articles of
+                Incorporation
+            </td>
+            <td>
+                <b>Замовник</b>: Upwork Global Inc.
+                475 Brannan Street, Suite 430, San Francisco, CA 94107
+                в особі Director of Customer Support, Michelle Appleberg, що
+                діє на підставі Статуту
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Payer</b> (authorized by Customer to make payments):
+                <br/>
+                Upwork Escrow Inc.
+                <br/>
+                (on behalf of Upwork Global Inc.)
+                <br/>
+                475 Brannan Street, Suite 430, San Francisco, CA 94107
+                Represented by Junko Swain, President and Treasurer of
+                Upwork Escrow Inc.
+            </td>
+            <td>
+                <b>Платник</b> (повірена особа Замовника щодо розрахунків):
+                Upwork Escrow Inc.
+                <br/>
+                (від імені Upwork Global Inc.)
+                <br/>
+                475 Brannan Street, Suite 430, San Francisco, CA 94107
+                в особі Junko Swain, President and Treasurer of Upwork
+                Escrow Inc
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Subject matter</b>: <span id="en-subject">_______________________________</span>
+            </td>
+            <td>
+                <b>Предмет</b>: <span id="uk-subject">________________________________</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Currency</b>: USD
+            </td>
+            <td>
+                <b>Валюта</b>: Долар США
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Price (amount) of the services</b>: <price-total/>
+            </td>
+            <td>
+                <b>Ціна (загальна вартість) послуг</b>: <price-total/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Terms of payments</b>: Post payment of 100% upon the services delivery.
+            </td>
+            <td>
+                <b>Умови оплати</b>: 100% післяплата за фактом надання послуг.
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <b>Supplier Bank information</b>:
+                Beneficiary: PE
+                <br/><span id="en-bank-pe-name">__________________________________________________</span>
+                <br/>Account (IBAN): <span id="en-beneficiary-bank-pe-iban"></span>
+                <br/>Beneficiary’s bank: <span id="en-beneficiary-bank"></span>
+                <br/>Bank Address: <span id="en-beneficiary-bank-address"></span>
+                <br/>SWIFT code: <span id="en-beneficiary-bank-swift-code"></span>
+                <br/>
+                <b>Correspondent bank information</b>: <span id="en-correspondent-bank"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    <table id="table-total">
+        <tbody>
+        <tr>
+            <td>
+                №
+            </td>
+            <td>
+                Description /
+                <br/>Опис</td>
+            <td>
+                Quantity/
+                <br/>Кількість</td>
+            <td>
+                Price,USD
+                <br/>Ціна, Долар США
+            </td>
+            <td>
+                Amount, USD /
+                <br/>Загальна вартість,
+                Долар США
+            </td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td id="full-description"></td>
+            <td>1</td>
+            <td></td>
+            <td>
+                <price-total/>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total/Усього: </td>
+            <td>
+                <price-total/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                Total to pay/ <span id="en-total-text"></span>
+                <br/>Усього до сплати: <span id="uk-total-text"></span>
+            </td>
+            <td>
+                <price-total/>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<pagebreak />
+
+<div>
+    <p>
+        All charges of correspondent banks are at the Supplier’s expenses./ Усі комісії банків-кореспондентів сплачує Виконавець.
+    </p>
+
+    <p>
+        Payment hereof at the same time is the evidence of the service delivery, acceptance thereof in full scope and the confirmation of
+        final mutual installments between Parties. /
+        Оплата згідно цього Інвойсу одночасно є свідченням надання послуг, їх прийняття в повному обсязі, а також
+        підтвердженням кінцевих розрахунків між Сторонами.
+    </p>
+    <p>
+        The Parties shall not be liable for non-performance or improper performance of the obligations under the agreement during the
+        term of insuperable force circumstances. / Сторони звільняються від відповідальності за невиконання чи неналежне
+        виконання зобов’язань за договором на час дії форс-мажорних обставин.
+    </p>
+    <p>
+        Payment according hereto shall be also the confirmation that Parties have no claims to each other and have no intention to
+        submit any claims. / Оплата згідно цього Інвойсу є підтвердженням того, що Сторони не мають взаємних претензій та не
+        мають наміру направляти рекламації.
+    </p>
+    <p>
+        Any disputes arising out of the agreement between the Parties shall be settled by the competent court at the location of a
+        defendant. / Всі спори, що виникнуть між Сторонами по угоді будуть розглядатись компетентним судом за
+        місцезнаходження відповідача.
+    </p>
+    <p>
+        Supplier/Виконавець: _______________________ (<span id="en-supplier-name">___________________</span> / <span class="uk-supplier-name">_____________________</span>)
+    </p>
+</div>
+</body>
+</html>

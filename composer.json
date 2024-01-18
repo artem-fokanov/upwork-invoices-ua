@@ -1,0 +1,25 @@
+{
+  "name": "zvu/upwork-invoices-ua",
+  "description": "Library to issue invoices as private entrepreneur (PE) for Upwork as local Ukrainian law requires.",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "keywords": [ "upwork", "invoice", "pdf", "invoice", "html", "template", "ua"],
+  "authors": [
+    {
+      "name": "zvu"
+    }
+  ],
+  "require": {
+    "php": ">=8.0",
+    "ext-dom": "*",
+    "ext-intl": "*",
+    "ext-libxml": "*",
+    "mpdf/mpdf": "^8.2",
+    "kwn/number-to-words": "^2.8"
+  },
+  "autoload": {
+    "psr-4": {
+      "UpworkInvoicesUa\\": "src/"
+    }
+  }
+}
